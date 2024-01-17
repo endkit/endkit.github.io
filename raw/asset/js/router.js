@@ -334,7 +334,7 @@ window.rout.er = (href,params)=>{
             state
         });
         window.rout.e = {
-            paths: uri ? uri.split("/").filter(o=>o.length > 1) : [],
+            paths: state.uri ? state.uri.split("/").filter(o=>o.length > 1) : [],
             uri
         };
         resolve(route);
