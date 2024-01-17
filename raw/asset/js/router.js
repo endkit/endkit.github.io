@@ -5,6 +5,39 @@ window.rout.ed = (href)=>{
     return href.split('/').filter(o=>o.length > 0);
 }
 window.rout.er = (href,params)=>{
+    if (window.rout.es.length === 0) {
+        function compare(a, b) {
+            var routed = (c)=>{
+                return c.getAttribute('route') ? c.getAttribute('route') : c.getAttribute('routes');
+            }
+            var aa = routed(a);
+            var bb = routed(b);
+            var x = rout.ed(aa);
+            var y = rout.ed(bb);
+            0 < 1 ? console.log(15, aa, bb, x.length, y.length) : null;
+            var routes = (z)=>{
+                return x.length < y.length ? x : y;
+            }
+            var alpha = routed(b).localeCompare(routed(a));
+            var length = routes(b).length - routes(a).length;
+            var paths = rout.ed(aa).length - rout.ed(bb).length;
+            return alpha
+        }
+        Array.from(document.querySelectorAll('[route], [routes]')).sort(compare).reverse().forEach(function(component) {
+            var route = {
+                file: component.getAttribute('component') + ".html",
+                url: component.getAttribute('route') || component.getAttribute('routes'),
+            };
+            window.rout.es.push(route);
+        });
+        0 < 1 ? window.rout.es.sort(function(a, b) {
+            return rout.ed(a.url).length - rout.ed(b.url).length
+        }).reverse() : null;
+        0 > 1 ? console.log(2, "window.onload", {
+            routes: window.routes
+        }) : null;
+    }
+
     return new Promise((resolve,reject)=>browser(resolve, reject));
     async function browser(resolve, reject) {
         //URL VARIABLES
@@ -12,6 +45,13 @@ window.rout.er = (href,params)=>{
         var pathname = url.pathname;
         var search = url.search ? url.search : null;
         var paths = pathname.split("/").splice(1).filter(n=>n.length > 0);
+        console.log(15, {
+            href,
+            url,
+            pathname,
+            search,
+            paths
+        });
 
         //TRANSFORM URL
         var link = pathname;
@@ -218,7 +258,12 @@ window.rout.er = (href,params)=>{
         var uri = link + (search ? "?" + search : "");
         var route = window.rout.es.filter(o=>o.url === matched)[0];
         var sr = matched.replaceAll('*', '_').split('/').filter(o=>o.length > 0);
-        var name = sr.length > 0 ? sr.join('.') : '-';
+        var name = sr.length > 0 ? sr.join('.') : '_';
+        console.log(222, {
+            route,
+            matched,
+            pool
+        });
         var component = document.querySelector('[route="' + route.url + '"], [routes="' + route.url + '"]');
         //console.log(145, route, matched, pool);
         0 > 1 ? console.log(216, {
@@ -241,10 +286,11 @@ window.rout.er = (href,params)=>{
                 search
             }
         };
-        var file = component && component.getAttribute('component') ? (component.getAttribute('component')) : (name.length === 0 ? "-" : name);
+        var file = component && component.getAttribute('component') ? (component.getAttribute('component')) : (name.length === 0 ? "_" : name);
         0 < 1 ? console.log(4, "browse.route", {
             file,
             component,
+            name,
             huh: '[route="' + route.url + '"]',
             uri,
             sr,
@@ -253,11 +299,11 @@ window.rout.er = (href,params)=>{
             route
         }) : null;
         document.querySelectorAll('component').forEach(c=>c.classList.remove('active'));
-        var html = await request('/raw/asset/html/' + file + '.html');
+        var html = await request('raw/pages/' + file + '.html');
         if (component) {
             component.innerHTML.length === 0 ? component.innerHTML = html : null;
             try {
-                uri = await window.routes(uri, options);
+                uri = window.routes ? await window.routes(uri, options) : null;
                 component.classList.add('active');
             } catch (e) {
                 console.log(route, route.file, e);
@@ -269,19 +315,26 @@ window.rout.er = (href,params)=>{
         const pop = params && params.pop;
         const mod = matched !== pathname
 
+        var base = document.head.querySelector('base');
+        var pre = new URL(base.href,location.origin);
+        var pth = pre.pathname.split('/').filter(o => o.length > 0);
         const state = {
-            url: uri
+            url: "/" + pth.join("/") + (pth.length > 1 ? "/" : "")
         }
         if (!["blob:"].includes(window.location.protocol)) {
             if (!(pop)) {
                 //console.log(121, obj);
-                history.pushState(state, null, uri)
+                history.pushState(state, null, state.uri)
             } else {
-                history.replaceState(state, null, uri);
+                history.replaceState(state, null, state.uri);
             }
         }
+        console.log(322, {
+            pre,
+            state
+        });
         window.rout.e = {
-            paths: uri.split("/").filter(o=>o.length > 1),
+            paths: uri ? uri.split("/").filter(o=>o.length > 1) : [],
             uri
         };
         resolve(route);
