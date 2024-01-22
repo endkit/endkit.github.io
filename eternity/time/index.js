@@ -38,15 +38,17 @@ window.eternity.loop.render = function() {
 }
 
 window.onload = function() {
-    var tick = 0;
-    var tock = 0;
+    window.t = {
+        ick: 0,
+        ock: 0
+    }
 
     const myWorker = new Worker("clock.js");
     myWorker.onmessage = (e)=>{
         console.log(2, "Message received from worker script", e.data);
         document.body.innerHTML = JSON.stringify(e.data, null, 4)
-        var a = tock;
-        var b = tick === tock && tock < 1 ? 1 : tick + tock;
+        var a = t.ock;
+        var b = t.ick === t.ock && t.ock < 1 ? 1 : t.ick + t.ock;
         var data = {
             tick: a,
             tock: b
@@ -58,8 +60,8 @@ window.onload = function() {
         window.time++;
         var frame = await process();
         const data = {
-            tick,
-            tock
+            tick: t.ick,
+            tock: t.ock
         }
         myWorker.postMessage(data);
         console.log(0, "Message sent to the worker script", data);
