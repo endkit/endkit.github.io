@@ -1,69 +1,25 @@
-@media {    
-    body {
-        display: flex;
-        flex-wrap: wrap;
-        font-family: Arial;
-        font-size: 16px;
-        line-height: 20px;
-        margin: 0;
-    }
-
-    page {
-        display: flex;
-    }
-    
-    block, card, box {
-        display: flex;
-    }
-    
-    block > column, card > column, box > column,
-    block > flex, card > flex, box > flex,
-    block > row, card > row, box > row {
-        /* align-items: center; */
-        display: flex;
-        /* justify-content: center; */
-        /* width: 100%; */
-    }
-
-    form {
-        margin: 0;
-    }
-    
-    picture {       
-        display: flex;
-    }
-    
-    column {
-        flex-direction: column;
-    }
-    
-    column, flex, row {
-        display: flex;
-    }
-
-    column, row {
-        /* width: 100%; */
-    }
-
-    row {
-    }
-
-    i {
-        align-items: center;
-        display: inline-flex;
-        justify-content: center;
-        min-height: 20px;
-        min-width: 20px;
-        vertical-align: initial;
-    }
-
-    img:not([src]) {
-        display: none;
-    }
+/*RESET*/
+body[auth]:not([auth="false"]) [auth="true"] {
+    display: none;
 }
 
-@media {
-    [placeholder]:not(input):before {
-        content: attr(placeholder);
-    }
+body[auth]:not([auth="true"]) [auth="false"] {
+    display: none;
+}
+
+body:not([auth]) [auth="true"] {
+    display: none;
+}
+
+block, card, box {
+    display: flex;
+    flex-direction: column;
+}
+
+column, flex, row {
+    display: flex;
+}
+
+page:not(.active) {
+    display: none;
 }
