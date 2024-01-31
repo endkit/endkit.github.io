@@ -17,7 +17,7 @@ window.eternity = {};
 window.eternity.core = {};
 window.eternity.core.state = [];
 window.eternity.loop = {};
-window.eternity.loop.input= function() {
+window.eternity.loop.input = function() {
     return new Promise(function(resolve, reject) {
         resolve([0]);
     }
@@ -38,12 +38,21 @@ window.eternity.loop.render = function() {
 }
 
 window.onload = function() {
-    var date = new Date();
-    do {
-        var tick = 0;
-        var tock = 1;
-        console.log({tick, tock});
-    } while(false === false)
+    window.t = {
+        ick: 0,
+        ock: 0
+    }
+
+    async function process() {
+        return new Promise(async(resolve,reject)=>{
+            setTimeout(()=>resolve(), 500);
+        }
+        )
+    }
+
+    //document.body.setAttribute("theme", "auto");
+
+    document.body.querySelector("page[routes='/']");
 }
 
 window.time = 0;

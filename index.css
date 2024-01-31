@@ -3,3 +3,12 @@
         margin: 0;
     }
 }
+
+@maedia {
+    body > header {
+        background: #777;
+        display: flex;
+        height: 50px;
+        width: 100%;
+    }
+}

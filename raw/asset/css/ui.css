@@ -1,8 +1,18 @@
+/* Empty CSS Media Queries are for structural purposes of recursive folding */
+/* Queries are section on a root, element, and query form basis */
+
 @media {
     body {
         font-family: Arial;
         margin: 0;
         overflow: hidden;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        body {
+            background: black;
+            color: white;
+        }
     }
 
     @media (prefers-color-scheme: dark) {
@@ -35,7 +45,18 @@
         display: flex;
     }
 
+    i:has(con) {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+    }
+
     page:not(.active) {
         display: none;
+    }
+
+    picture img {
+        height: 100%;
+        width: 100%;
     }
 }
