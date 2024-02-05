@@ -259,7 +259,7 @@ window.rout.er = (href,params)=>{
         var route = window.rout.es.filter(o=>o.url === matched)[0];
         var sr = matched.replaceAll('*', '_').split('/').filter(o=>o.length > 0);
         var name = sr.length > 0 ? sr.join('.') : '_';
-        console.log(222, {
+        console.log(222, window.rout.es, {
             route,
             matched,
             pool

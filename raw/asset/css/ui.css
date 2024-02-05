@@ -4,8 +4,9 @@
 @media {
     body {
         font-family: Arial;
+        height: 100%;
         margin: 0;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -36,6 +37,16 @@
 }
 
 @media {
+    a {
+        color: unset;
+        text-decoration: none;
+    }
+
+    blocks {
+        display: flex;
+        flex-direction: column;
+    }
+    
     block, card, box {
         display: flex;
         flex-direction: column;
@@ -43,6 +54,11 @@
 
     column, flex, row {
         display: flex;
+    }
+
+    column {
+        flex-direction: column;
+        gap: 10px;
     }
 
     i:has(con) {
@@ -53,6 +69,11 @@
 
     page:not(.active) {
         display: none;
+    }
+
+    picture {
+        display: flex;
+        position: relative;
     }
 
     picture img {
